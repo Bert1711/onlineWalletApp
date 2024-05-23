@@ -10,7 +10,6 @@ import java.util.UUID;
  */
 public class WalletEntity {
     private UUID walletId;
-    private OperationType operationType;
     private BigDecimal amount;
 
 }
