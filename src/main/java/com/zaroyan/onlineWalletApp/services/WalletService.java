@@ -1,9 +1,15 @@
 package com.zaroyan.onlineWalletApp.services;
 
+import com.zaroyan.onlineWalletApp.dto.WalletRequest;
+import com.zaroyan.onlineWalletApp.dto.WalletResponse;
+import com.zaroyan.onlineWalletApp.models.WalletEntity;
 import com.zaroyan.onlineWalletApp.repositories.WalletRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @author Zaroyan
@@ -16,5 +22,11 @@ public class WalletService {
     @Autowired
     public WalletService(WalletRepository walletRepository) {
         this.walletRepository = walletRepository;
+    }
+
+    public WalletResponse getWallet(UUID walletId) {
+    }
+
+    public void transfer(WalletRequest walletRequest) {
     }
 }

@@ -2,9 +2,11 @@ package com.zaroyan.onlineWalletApp.controllers;
 
 import com.zaroyan.onlineWalletApp.dto.WalletRequest;
 import com.zaroyan.onlineWalletApp.dto.WalletResponse;
+import com.zaroyan.onlineWalletApp.models.WalletEntity;
 import com.zaroyan.onlineWalletApp.services.WalletService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +36,14 @@ public class WalletController {
 
     @PostMapping(value = "/wallet")
     public ResponseEntity<HttpStatus> transfer(@RequestBody @Valid WalletRequest walletRequest) throws IOException {
+        WalletEntity wallet = convertToWallet(walletRequest);
         walletService.transfer(walletRequest);
         return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    private WalletEntity convertToWallet(WalletRequest walletRequest) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(walletRequest, WalletEntity.class);
     }
 
 }
