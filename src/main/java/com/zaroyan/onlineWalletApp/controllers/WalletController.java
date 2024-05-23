@@ -37,7 +37,7 @@ public class WalletController {
     @PostMapping(value = "/wallet")
     public ResponseEntity<HttpStatus> transfer(@RequestBody @Valid WalletRequest walletRequest) throws IOException {
         WalletEntity wallet = convertToWallet(walletRequest);
-        walletService.transfer(walletRequest);
+        walletService.transfer(wallet);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

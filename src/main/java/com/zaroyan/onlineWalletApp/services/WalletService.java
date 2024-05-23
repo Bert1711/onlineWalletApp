@@ -27,6 +27,6 @@ public class WalletService {
     public WalletResponse getWallet(UUID walletId) {
     }
 
-    public void transfer(WalletRequest walletRequest) {
+    public void transfer(WalletEntity wallet) {
     }
 }
