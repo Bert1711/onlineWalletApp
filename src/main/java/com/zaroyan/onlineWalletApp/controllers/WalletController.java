@@ -4,6 +4,7 @@ import com.zaroyan.onlineWalletApp.dto.WalletRequest;
 import com.zaroyan.onlineWalletApp.dto.WalletResponse;
 import com.zaroyan.onlineWalletApp.models.WalletEntity;
 import com.zaroyan.onlineWalletApp.services.WalletService;
+import com.zaroyan.onlineWalletApp.utils.OperationType;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -36,7 +37,11 @@ public class WalletController {
 
     @PostMapping(value = "/wallet")
     public ResponseEntity<HttpStatus> transfer(@RequestBody @Valid WalletRequest walletRequest) throws IOException {
-        walletService.transfer(convertToWallet(walletRequest));
+        if (walletRequest.getOperationType() == OperationType.DEPOSIT) {
+            walletService.transferDeposit(convertToWallet(walletRequest));
+        } else if (walletRequest.getOperationType() == OperationType.WITHDRAW) {
+            walletService.transferWithdraw(convertToWallet(walletRequest));
+        }
         return ResponseEntity.ok(HttpStatus.OK);
     }
 

@@ -29,11 +29,19 @@ public class WalletService {
         if (walletEntityOptional.isPresent()) {
             return walletEntityOptional.get();
         } else {
-            throw new RuntimeException("Кошелёк не найден");
+            throw new NullPointerException("Кошелёк не найден");
         }
     }
 
-    public void transfer(WalletEntity wallet) {
+    public void transferDeposit(WalletEntity wallet) {
+        Optional<WalletEntity> walletEntityOptional = walletRepository.findById(wallet.getWalletId());
+        if(walletEntityOptional.isPresent()) {
+            WalletEntity walletEntity = walletEntityOptional.get();
 
+        }
+
+    }
+
+    public void transferWithdraw(WalletEntity walletEntity) {
     }
 }
