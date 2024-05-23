@@ -30,7 +30,7 @@ public class WalletService {
             WalletEntity walletEntity = walletEntityOptional.get();
             return walletEntity;
         } else {
-            new RuntimeException("Кошелёк не найден");
+            throw new RuntimeException("Кошелёк не найден");
         }
     }
 
