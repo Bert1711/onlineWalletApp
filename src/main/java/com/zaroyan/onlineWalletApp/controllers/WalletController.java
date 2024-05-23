@@ -1,5 +1,7 @@
 package com.zaroyan.onlineWalletApp.controllers;
 
+import com.zaroyan.onlineWalletApp.dto.WalletRequest;
+import com.zaroyan.onlineWalletApp.dto.WalletResponse;
 import com.zaroyan.onlineWalletApp.services.WalletService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
