@@ -31,19 +31,23 @@ public class WalletController {
 
     @GetMapping("/wallets/{walletId}")
     public WalletResponse getWallet(@PathVariable UUID walletId) {
-        return walletService.getWallet(walletId);
+        return convertToWalletResponse(walletService.getWallet(walletId));
     }
 
     @PostMapping(value = "/wallet")
     public ResponseEntity<HttpStatus> transfer(@RequestBody @Valid WalletRequest walletRequest) throws IOException {
-        WalletEntity wallet = convertToWallet(walletRequest);
-        walletService.transfer(wallet);
+        walletService.transfer(convertToWallet(walletRequest));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     private WalletEntity convertToWallet(WalletRequest walletRequest) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(walletRequest, WalletEntity.class);
+    }
+
+    private WalletResponse convertToWalletResponse(WalletEntity walletEntity) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(walletEntity, WalletResponse.class);
     }
 
 }

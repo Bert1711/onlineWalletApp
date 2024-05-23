@@ -24,7 +24,14 @@ public class WalletService {
         this.walletRepository = walletRepository;
     }
 
-    public WalletResponse getWallet(UUID walletId) {
+    public WalletEntity getWallet(UUID walletId) {
+       Optional<WalletEntity> walletEntityOptional = walletRepository.findById(walletId);
+        if (walletEntityOptional.isPresent()) {
+            WalletEntity walletEntity = walletEntityOptional.get();
+            return walletEntity;
+        } else {
+            new RuntimeException("Кошелёк не найден");
+        }
     }
 
     public void transfer(WalletEntity wallet) {
