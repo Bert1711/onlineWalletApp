@@ -1,6 +1,5 @@
 package com.zaroyan.onlineWalletApp.models;
 
-import com.zaroyan.onlineWalletApp.utils.OperationType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
