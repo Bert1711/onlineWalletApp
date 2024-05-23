@@ -27,13 +27,13 @@ public class WalletService {
     public WalletEntity getWallet(UUID walletId) {
        Optional<WalletEntity> walletEntityOptional = walletRepository.findById(walletId);
         if (walletEntityOptional.isPresent()) {
-            WalletEntity walletEntity = walletEntityOptional.get();
-            return walletEntity;
+            return walletEntityOptional.get();
         } else {
             throw new RuntimeException("Кошелёк не найден");
         }
     }
 
     public void transfer(WalletEntity wallet) {
+
     }
 }
