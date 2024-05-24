@@ -54,5 +54,4 @@ public class WalletController {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(walletEntity, WalletResponse.class);
     }
-
 }
