@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  database:
+    image: postgres
+    container_name: 'db-online-wallet-app'
+    ports:
+      - 5432:5432
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DATABASE: online_wallet_app
+
+  app:
+    image: onlineWalletApp:latest
+    container_name: 'online-wallet-app'
+    build:
+      context: .
+    ports:
+      - 8080:8081
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
