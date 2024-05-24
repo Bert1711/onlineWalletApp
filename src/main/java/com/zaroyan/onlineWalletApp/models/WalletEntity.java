@@ -1,8 +1,6 @@
 package com.zaroyan.onlineWalletApp.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +20,7 @@ import java.util.UUID;
 @Table(name = "wallets")
 public class WalletEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID walletId;
     private BigDecimal amount;
 
