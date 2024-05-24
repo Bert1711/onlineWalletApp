@@ -1,5 +1,7 @@
 package com.zaroyan.onlineWalletApp.services;
 
+import com.zaroyan.onlineWalletApp.exceptions.InsufficientFundsException;
+import com.zaroyan.onlineWalletApp.exceptions.WalletNotFoundException;
 import com.zaroyan.onlineWalletApp.models.WalletEntity;
 import com.zaroyan.onlineWalletApp.repositories.WalletRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +32,7 @@ public class WalletService {
         if (walletEntityOptional.isPresent()) {
             return walletEntityOptional.get();
         } else {
-            throw new NullPointerException("Кошелёк не найден");
+            throw new WalletNotFoundException("Кошелёк не найден");
         }
     }
 
@@ -42,7 +44,7 @@ public class WalletService {
             walletEntity.setAmount(walletEntity.getAmount().add(deposit.getAmount()));
             walletRepository.save(walletEntity);
         } else {
-            throw new NullPointerException("Кошелёк не найден");
+            throw new WalletNotFoundException("Кошелёк не найден");
         }
     }
 
@@ -52,12 +54,12 @@ public class WalletService {
         if(walletEntityOptional.isPresent()) {
             WalletEntity walletEntity = walletEntityOptional.get();
             if (walletEntity.getAmount().compareTo(withdraw.getAmount()) < 0) {
-                throw new RuntimeException("Недостаточно средств");
+                throw new InsufficientFundsException("Недостаточно средств");
             }
             walletEntity.setAmount(walletEntity.getAmount().subtract(withdraw.getAmount()));
             walletRepository.save(walletEntity);
         } else {
-            throw new NullPointerException("Кошелёк не найден");
+            throw new WalletNotFoundException("Кошелёк не найден");
         }
     }
 }
