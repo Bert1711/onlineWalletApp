@@ -1,10 +1,13 @@
 package com.zaroyan.onlineWalletApp.dto;
 
 import com.zaroyan.onlineWalletApp.utils.OperationType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -13,11 +16,17 @@ import java.util.UUID;
  * @author Zaroyan
  */
 @Data
-@AllArgsConstructor
-@RequiredArgsConstructor
 @Builder
+@AllArgsConstructor // Добавляем аннотацию AllArgsConstructor
 public class WalletRequest {
+
+    @NotNull(message = "Идентификатор кошелька не указан.")
     private UUID walletId;
-    private BigDecimal amount;
+
+    @NotNull(message = "Тип операции не указан.")
     private OperationType operationType;
+
+    @NotNull(message = "Сумма не указана.")
+    @Min(value = 1, message = "Сумма должна быть больше 0.")
+    private BigDecimal amount;
 }
