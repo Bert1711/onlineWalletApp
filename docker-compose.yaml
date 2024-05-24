@@ -12,12 +12,12 @@ services:
       POSTGRES_DATABASE: online_wallet_app
 
   app:
-    image: onlineWalletApp:latest
+    image: online_wallet_app:latest
     container_name: 'online-wallet-app'
     build:
       context: .
     ports:
-      - 8080:8081
+      - 8081:8081
     depends_on:
       - database
     environment:

@@ -1,4 +1,4 @@
-FROM openjdk:17
+FROM openjdk:17-alpine
 EXPOSE 8081
-COPY onlineWalletApp-0.0.1-SNAPSHOT.jar /app/app.jar
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+COPY target/onlineWalletApp-0.0.1-SNAPSHOT.jar /app.jar
+ENTRYPOINT ["java", "-jar", "/app.jar"]
