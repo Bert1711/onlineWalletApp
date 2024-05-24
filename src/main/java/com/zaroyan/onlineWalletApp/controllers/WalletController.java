@@ -32,16 +32,19 @@ public class WalletController {
 
     @GetMapping("/wallets/{walletId}")
     public ResponseEntity<WalletEntity> getWallet(@PathVariable UUID walletId) {
-        log.info(walletId.toString());
+        log.info("Поступил запрос на информацию баланса кошелька с id: " + walletId.toString());
         return ResponseEntity.ok(walletService.getWallet(walletId));
     }
 
     @PostMapping(value = "/wallet")
     public ResponseEntity<HttpStatus> transfer(@RequestBody @Valid WalletRequest walletRequest) throws IOException {
+
         if (walletRequest.getOperationType() == OperationType.DEPOSIT) {
             walletService.transferDeposit(convertToWallet(walletRequest));
+            log.info("Выполнено пополнение кошелька на сумму: " + walletRequest.getAmount());
         } else if (walletRequest.getOperationType() == OperationType.WITHDRAW) {
             walletService.transferWithdraw(convertToWallet(walletRequest));
+            log.info("Выполнен вывод средств на сумму: " + walletRequest.getAmount());
         }
         return ResponseEntity.ok(HttpStatus.OK);
     }
