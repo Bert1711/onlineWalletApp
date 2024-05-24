@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-wallets
+      author: Zaroyan
+      changes:
+        - createTable:
+            tableName: wallets
+            columns:
+              - column:
+                  name: walletId
+                  type: uuid
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: amount
+                  type: decimal(19,2)

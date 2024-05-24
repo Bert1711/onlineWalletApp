@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-wallets
+      author: Zaroyan
+      changes:
+
+        - sql:
+            sql: >
+              INSERT INTO wallets (walletId, amount)
+              VALUES (1, 1000);
+
+        - sql:
+            sql: >
+              INSERT INTO wallets (walletId, amount)
+              VALUES (2, 2000);
+
+        - sql:
+            sql: >
+              INSERT INTO wallets (walletId, amount)
+              VALUES (3, 3000);
