@@ -7,12 +7,13 @@ databaseChangeLog:
             tableName: wallets
             columns:
               - column:
-                  name: walletId
+                  name: wallet_id
                   type: uuid
-                  autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: amount
                   type: decimal(19,2)
+                  constraints:
+                    nullable: false

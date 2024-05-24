@@ -3,18 +3,32 @@ databaseChangeLog:
       id: insert-wallets
       author: Zaroyan
       changes:
+        - insert:
+            tableName: wallets
+            columns:
+              - column:
+                  name: wallet_id
+                  value: 2f5c3c19-8b5f-4a94-afdf-57c69e1c7a2e
+              - column:
+                  name: amount
+                  value: 1000
 
-        - sql:
-            sql: >
-              INSERT INTO wallets (walletId, amount)
-              VALUES (1, 1000);
+        - insert:
+            tableName: wallets
+            columns:
+              - column:
+                  name: wallet_id
+                  value: 22222222-2222-2222-2222-222222222222
+              - column:
+                  name: amount
+                  value: 2000
 
-        - sql:
-            sql: >
-              INSERT INTO wallets (walletId, amount)
-              VALUES (2, 2000);
-
-        - sql:
-            sql: >
-              INSERT INTO wallets (walletId, amount)
-              VALUES (3, 3000);
+        - insert:
+            tableName: wallets
+            columns:
+              - column:
+                  name: wallet_id
+                  value: 33333333-3333-3333-3333-333333333333
+              - column:
+                  name: amount
+                  value: 3000

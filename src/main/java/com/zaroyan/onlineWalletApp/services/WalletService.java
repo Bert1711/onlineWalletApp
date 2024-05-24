@@ -30,6 +30,7 @@ public class WalletService {
     public WalletEntity getWallet(UUID walletId) {
        Optional<WalletEntity> walletEntityOptional = walletRepository.findById(walletId);
         if (walletEntityOptional.isPresent()) {
+            log.info(walletEntityOptional.get().toString());
             return walletEntityOptional.get();
         } else {
             throw new WalletNotFoundException("Кошелёк не найден");
