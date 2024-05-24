@@ -5,6 +5,7 @@ import com.zaroyan.onlineWalletApp.repositories.WalletRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -14,6 +15,7 @@ import java.util.UUID;
  */
 @Service
 @Slf4j
+
 public class WalletService {
     private final WalletRepository walletRepository;
 
@@ -22,6 +24,7 @@ public class WalletService {
         this.walletRepository = walletRepository;
     }
 
+    @Transactional(timeout = 30, readOnly = true)
     public WalletEntity getWallet(UUID walletId) {
        Optional<WalletEntity> walletEntityOptional = walletRepository.findById(walletId);
         if (walletEntityOptional.isPresent()) {
@@ -31,6 +34,7 @@ public class WalletService {
         }
     }
 
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void transferDeposit(WalletEntity deposit) {
         Optional<WalletEntity> walletEntityOptional = walletRepository.findById(deposit.getWalletId());
         if(walletEntityOptional.isPresent()) {
@@ -42,6 +46,7 @@ public class WalletService {
         }
     }
 
+    @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void transferWithdraw(WalletEntity withdraw) {
         Optional<WalletEntity> walletEntityOptional = walletRepository.findById(withdraw.getWalletId());
         if(walletEntityOptional.isPresent()) {
