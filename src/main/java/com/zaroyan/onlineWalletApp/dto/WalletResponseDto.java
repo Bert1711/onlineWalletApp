@@ -6,7 +6,7 @@ import java.util.UUID;
 /**
  * @author Zaroyan
  */
-public class WalletResponse {
+public class WalletResponseDto {
     private UUID walletId;
     private BigDecimal amount;
 }

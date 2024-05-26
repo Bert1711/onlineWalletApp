@@ -1,6 +1,6 @@
 package com.zaroyan.onlineWalletApp.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zaroyan.onlineWalletApp.dto.WalletRequest;
+import com.zaroyan.onlineWalletApp.dto.WalletRequestDto;
 import com.zaroyan.onlineWalletApp.models.WalletEntity;
 import com.zaroyan.onlineWalletApp.services.WalletService;
 import com.zaroyan.onlineWalletApp.utils.OperationType;
@@ -59,7 +59,7 @@ public class WalletControllerTest {
 
     @Test
     public void testTransferDeposit() throws Exception {
-        WalletRequest walletRequest = createWalletRequest(OperationType.DEPOSIT, BigDecimal.valueOf(500));
+        WalletRequestDto walletRequest = createWalletRequest(OperationType.DEPOSIT, BigDecimal.valueOf(500));
 
         mockMvc.perform(post("/api/v1/wallet")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -71,7 +71,7 @@ public class WalletControllerTest {
 
     @Test
     public void testTransferWithdraw() throws Exception {
-        WalletRequest walletRequest = createWalletRequest(OperationType.WITHDRAW, BigDecimal.valueOf(300));
+        WalletRequestDto walletRequest = createWalletRequest(OperationType.WITHDRAW, BigDecimal.valueOf(300));
 
         mockMvc.perform(post("/api/v1/wallet")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -81,8 +81,8 @@ public class WalletControllerTest {
         verify(walletService, times(1)).transferWithdraw(any(WalletEntity.class));
     }
 
-    private WalletRequest createWalletRequest(OperationType operationType, BigDecimal amount) {
-        return new WalletRequest(walletId, operationType, amount);
+    private WalletRequestDto createWalletRequest(OperationType operationType, BigDecimal amount) {
+        return new WalletRequestDto(walletId, operationType, amount);
     }
 
     private static String asJsonString(final Object obj) {

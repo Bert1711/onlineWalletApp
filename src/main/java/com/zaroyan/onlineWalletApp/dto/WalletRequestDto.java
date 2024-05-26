@@ -1,8 +1,6 @@
 package com.zaroyan.onlineWalletApp.dto;
 
 import com.zaroyan.onlineWalletApp.utils.OperationType;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,7 +16,7 @@ import java.util.UUID;
 @Data
 @Builder
 @AllArgsConstructor // Добавляем аннотацию AllArgsConstructor
-public class WalletRequest {
+public class WalletRequestDto {
 
     @NotNull(message = "Идентификатор кошелька не указан.")
     private UUID walletId;

@@ -28,7 +28,7 @@ public class WalletService {
 
     @Transactional(timeout = 30, readOnly = true)
     public WalletEntity getWallet(UUID walletId) {
-       Optional<WalletEntity> walletEntityOptional = walletRepository.findById(walletId);
+        Optional<WalletEntity> walletEntityOptional = walletRepository.findById(walletId);
         if (walletEntityOptional.isPresent()) {
             log.info(walletEntityOptional.get().toString());
             return walletEntityOptional.get();
@@ -39,28 +39,21 @@ public class WalletService {
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void transferDeposit(WalletEntity deposit) {
-        Optional<WalletEntity> walletEntityOptional = walletRepository.findById(deposit.getWalletId());
-        if(walletEntityOptional.isPresent()) {
-            WalletEntity walletEntity = walletEntityOptional.get();
-            walletEntity.setAmount(walletEntity.getAmount().add(deposit.getAmount()));
-            walletRepository.save(walletEntity);
-        } else {
-            throw new WalletNotFoundException("Кошелёк не найден");
-        }
+        WalletEntity walletEntity = walletRepository.findById(deposit.getWalletId())
+                .orElseThrow(() -> new WalletNotFoundException("Кошелёк не найден"));
+        walletEntity.setAmount(walletEntity.getAmount().add(deposit.getAmount()));
+        walletRepository.save(walletEntity);
     }
 
     @Transactional(timeout = 30, rollbackFor = Exception.class)
     public void transferWithdraw(WalletEntity withdraw) {
-        Optional<WalletEntity> walletEntityOptional = walletRepository.findById(withdraw.getWalletId());
-        if(walletEntityOptional.isPresent()) {
-            WalletEntity walletEntity = walletEntityOptional.get();
-            if (walletEntity.getAmount().compareTo(withdraw.getAmount()) < 0) {
-                throw new InsufficientFundsException("Недостаточно средств");
-            }
-            walletEntity.setAmount(walletEntity.getAmount().subtract(withdraw.getAmount()));
-            walletRepository.save(walletEntity);
-        } else {
-            throw new WalletNotFoundException("Кошелёк не найден");
+        WalletEntity walletEntity = walletRepository.findById(withdraw.getWalletId())
+                .orElseThrow(() -> new WalletNotFoundException("Кошелёк не найден"));
+
+        if (walletEntity.getAmount().compareTo(withdraw.getAmount()) < 0) {
+            throw new InsufficientFundsException("Недостаточно средств");
         }
+        walletEntity.setAmount(walletEntity.getAmount().subtract(withdraw.getAmount()));
+        walletRepository.save(walletEntity);
     }
 }

@@ -1,7 +1,7 @@
 package com.zaroyan.onlineWalletApp.controllers;
 
-import com.zaroyan.onlineWalletApp.dto.WalletRequest;
-import com.zaroyan.onlineWalletApp.dto.WalletResponse;
+import com.zaroyan.onlineWalletApp.dto.WalletRequestDto;
+import com.zaroyan.onlineWalletApp.dto.WalletResponseDto;
 import com.zaroyan.onlineWalletApp.models.WalletEntity;
 import com.zaroyan.onlineWalletApp.services.WalletService;
 import com.zaroyan.onlineWalletApp.utils.OperationType;
@@ -37,7 +37,7 @@ public class WalletController {
     }
 
     @PostMapping(value = "/wallet")
-    public ResponseEntity<HttpStatus> transfer(@RequestBody @Valid WalletRequest walletRequest) throws IOException {
+    public ResponseEntity<HttpStatus> transfer(@RequestBody @Valid WalletRequestDto walletRequest) throws IOException {
 
         if (walletRequest.getOperationType() == OperationType.DEPOSIT) {
             walletService.transferDeposit(convertToWallet(walletRequest));
@@ -49,13 +49,13 @@ public class WalletController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    private WalletEntity convertToWallet(WalletRequest walletRequest) {
+    private WalletEntity convertToWallet(WalletRequestDto walletRequest) {
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(walletRequest, WalletEntity.class);
     }
 
-    private WalletResponse convertToWalletResponse(WalletEntity walletEntity) {
+    private WalletResponseDto convertToWalletResponse(WalletEntity walletEntity) {
         ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(walletEntity, WalletResponse.class);
+        return modelMapper.map(walletEntity, WalletResponseDto.class);
     }
 }
